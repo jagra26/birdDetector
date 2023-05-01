@@ -1,0 +1,3 @@
+C:/Users/joaoa/birdDetector/cmake-build-debug/CMakeFiles/birdDetector.dir
+C:/Users/joaoa/birdDetector/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/joaoa/birdDetector/cmake-build-debug/CMakeFiles/rebuild_cache.dir
