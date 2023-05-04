@@ -1,1 +1,1 @@
-/usr/bin/cc -rdynamic CMakeFiles/birdDetector.dir/spectrogram.c.o CMakeFiles/birdDetector.dir/common.c.o CMakeFiles/birdDetector.dir/spectrum.c.o CMakeFiles/birdDetector.dir/window.c.o -o birdDetector  -lm -lsndfile -lfftw3 -lcairo 
+/usr/bin/cc   -rdynamic CMakeFiles/birdDetector.dir/spectrogram.c.o CMakeFiles/birdDetector.dir/common.c.o CMakeFiles/birdDetector.dir/spectrum.c.o CMakeFiles/birdDetector.dir/window.c.o  -o birdDetector  -lm -lsndfile -lfftw3 -lcairo 

@@ -1,17 +1,25 @@
-
-# Consider dependencies only in project.
-set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
-
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "C"
   )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_C
+  "/mnt/c/Users/joaoa/Documents/birdDetector/snd/common.c" "/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/birdDetector.dir/common.c.o"
+  "/mnt/c/Users/joaoa/Documents/birdDetector/snd/spectrogram.c" "/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/birdDetector.dir/spectrogram.c.o"
+  "/mnt/c/Users/joaoa/Documents/birdDetector/snd/spectrum.c" "/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/birdDetector.dir/spectrum.c.o"
+  "/mnt/c/Users/joaoa/Documents/birdDetector/snd/window.c" "/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/birdDetector.dir/window.c.o"
+  )
+set(CMAKE_C_COMPILER_ID "GNU")
 
-# The set of dependency files which are needed:
-set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/c/Users/joaoa/birdDetector/snd/common.c" "CMakeFiles/birdDetector.dir/common.c.o" "gcc" "CMakeFiles/birdDetector.dir/common.c.o.d"
-  "/mnt/c/Users/joaoa/birdDetector/snd/spectrogram.c" "CMakeFiles/birdDetector.dir/spectrogram.c.o" "gcc" "CMakeFiles/birdDetector.dir/spectrogram.c.o.d"
-  "/mnt/c/Users/joaoa/birdDetector/snd/spectrum.c" "CMakeFiles/birdDetector.dir/spectrum.c.o" "gcc" "CMakeFiles/birdDetector.dir/spectrum.c.o.d"
-  "/mnt/c/Users/joaoa/birdDetector/snd/window.c" "CMakeFiles/birdDetector.dir/window.c.o" "gcc" "CMakeFiles/birdDetector.dir/window.c.o.d"
+# The include file search paths:
+set(CMAKE_C_TARGET_INCLUDE_PATH
+  "/usr/include/cairo"
+  "/usr/include/glib-2.0"
+  "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+  "/usr/include/pixman-1"
+  "/usr/include/uuid"
+  "/usr/include/freetype2"
+  "/usr/include/libpng16"
   )
 
 # Targets to which this target links.
