@@ -1,3 +1,0 @@
-#define PACKAGE_VERSION "1.5"
-
-#define HAVE_SYS_WAIT_H
