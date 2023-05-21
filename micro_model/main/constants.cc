@@ -13,15 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "main_functions.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "constants.h"
 
-extern "C" void app_main(void) {
-  setup();
-  while (true) {
-    //loop();
-    MicroPrintf("ENTREI NO MODELO");
-    vTaskDelay(5000/portTICK_PERIOD_MS);
-  }
-}
+// This is a small number so that it's easy to read the logs
+const int kInferencesPerCycle = 20;

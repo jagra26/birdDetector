@@ -13,15 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "main_functions.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "output_handler.h"
+#include "tensorflow/lite/micro/micro_log.h"
 
-extern "C" void app_main(void) {
-  setup();
-  while (true) {
-    //loop();
-    MicroPrintf("ENTREI NO MODELO");
-    vTaskDelay(5000/portTICK_PERIOD_MS);
-  }
+void HandleOutput(float x_value, float y_value) {
+  // Log the current X and Y values
+  MicroPrintf("x_value: %f, y_value: %f\n", static_cast<double>(x_value),
+              static_cast<double>(y_value));
 }
