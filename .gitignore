@@ -1,1 +1,4 @@
 ./snd/build/*
+./micro_model/build/*
+./micro_model/vscode/*
+./vscode/*

@@ -48,7 +48,7 @@ void setup() {
   input = interpreter->input(0);
   output = interpreter->output(0);
 
-  memcpy(input->data.uint8, bem_te_vi, 37717 * sizeof(unsigned char));  
+  memcpy(input->data.uint8, sabia, 37716 * sizeof(unsigned char));  
   
   TfLiteStatus invoke_status = interpreter->Invoke();
   if (invoke_status != kTfLiteOk) {
@@ -61,6 +61,6 @@ void setup() {
 void loop() {
   MicroPrintf("Saída do Modelo:");
   int8_t out = output->data.int8[0];
-  out = out & 0b01111111;
+  //out = out & 0b01111111;
   MicroPrintf("out_value: %d\n", out);
 }

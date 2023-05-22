@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/Users/joaoa/Documents/birdDetector/snd"
+    "cmake.sourceDirectory": "C:/Users/joaoa/Documents/birdDetector/snd",
+    "idf.adapterTargetName": "esp32"
 }

@@ -1,3 +1,0 @@
-/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/joaoa/Documents/birdDetector/snd/build/CMakeFiles/birdDetector.dir
