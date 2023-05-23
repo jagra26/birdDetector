@@ -1,19 +1,27 @@
 #include "main_functions.h"
-#include "model.h"
-#include "input.h"
-#include "string.h"
-
 namespace {
-const tflite::Model* model = nullptr;
-tflite::MicroInterpreter* interpreter = nullptr;
-TfLiteTensor* input = nullptr;
-TfLiteTensor* output = nullptr;
+  const tflite::Model* model = nullptr;
+  tflite::MicroInterpreter* interpreter = nullptr;
+  TfLiteTensor* input = nullptr;
+  TfLiteTensor* output = nullptr;
 
-constexpr int kTensorArenaSize = 120 * 2048;
-uint8_t tensor_arena[kTensorArenaSize];
-}  // namespace
+  constexpr int kTensorArenaSize = 120 * 2048;
+  uint8_t tensor_arena[kTensorArenaSize];
+} // namespace
 
-static void result();
+const uint8_t* inputs[] = {
+  bem_te_vi,
+  sabia,
+  ganso,
+  cachorro,
+  urubu,
+  cascavel,
+  gato,
+  galinha,
+  leao,
+};
+
+#define NUM_OF_INPUTS sizeof(inputs)/sizeof(inputs[0])
 
 void model_setup(){
 
@@ -28,69 +36,42 @@ void model_setup(){
   resolver.AddFullyConnected();
   resolver.AddLogistic();
 
-  // Build an interpreter to run the model with.
   static tflite::MicroInterpreter static_interpreter(model, resolver, tensor_arena, kTensorArenaSize);
   interpreter = &static_interpreter;
 
-  // Allocate memory from the tensor_arena for the model's tensors.
   TfLiteStatus allocate_status = interpreter->AllocateTensors();
   if (allocate_status != kTfLiteOk) {
     MicroPrintf("AllocateTensors() failed");
     return;
   }
 
-  // Obtain pointers to the model's input and output tensors.
   input = interpreter->input(0);
   output = interpreter->output(0);
 }
 
-void inferences() {
+void inferences(){
 
-  MicroPrintf("Saída do Modelo para a entrada 'Bem-te-vi':");
-  memcpy(input->data.uint8, bem_te_vi, bem_te_vi_len * sizeof(unsigned char));
-  result();
-
-  MicroPrintf("Saída do Modelo para a entrada 'Sabiá':");
-  memcpy(input->data.uint8, sabia, sabia_len * sizeof(unsigned char));
-  result();
-  
-  MicroPrintf("Saída do Modelo para a entrada 'Ganso':");
-  memcpy(input->data.uint8, ganso, ganso_len * sizeof(unsigned char));
-  result();
-
-  MicroPrintf("Saída do Modelo para a entrada 'Cachorro':");
-  memcpy(input->data.uint8, cachorro, cachorro_len * sizeof(unsigned char));
-  result();
-
-  MicroPrintf("Saída do Modelo para a entrada 'Urubu':");
-  memcpy(input->data.uint8, urubu, urubu_len * sizeof(unsigned char));
-  result();
-  
-  MicroPrintf("Saída do Modelo para a entrada 'Cascavel':");
-  memcpy(input->data.uint8, cascavel, cascavel_len * sizeof(unsigned char));
-  result();
-  
-  MicroPrintf("Saída do Modelo para a entrada 'Gato':");
-  memcpy(input->data.uint8, gato, gato_len * sizeof(unsigned char));
-  result();
-  
-  MicroPrintf("Saída do Modelo para a entrada 'Galinha':");
-  memcpy(input->data.uint8, galinha, galinha_len * sizeof(unsigned char));
-  result();
-  
-  MicroPrintf("Saída do Modelo para a entrada 'Leão':");
-  memcpy(input->data.uint8, leao, leao_len * sizeof(unsigned char));
-  result();
- 
+  for (size_t i = 0; i < NUM_OF_INPUTS; i++)
+  {
+    MicroPrintf("Saída do Modelo para a entrada %d: ", i + 1);
+    memcpy(input->data.uint8, inputs[i], INPUT_LEN * sizeof(unsigned char));
+    result();
+  }
 }
 
-static void result(){
+void result(){
 
   uint8_t model_out;
 
   interpreter->Invoke();
   model_out = output->data.uint8[0] - 127;
 
-  MicroPrintf("out_value: %u\n", model_out);
-  vTaskDelay(2000 / portTICK_PERIOD_MS);
+  if(model_out){
+    MicroPrintf("PERTENCE A UM BEM-TE-VI\n");
+  }
+  else{
+    MicroPrintf("NÃO PERTENCE A UM BEM-TE-VI\n");
+  }
+
+  vTaskDelay(1000 / portTICK_PERIOD_MS);
 }

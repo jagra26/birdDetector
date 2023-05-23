@@ -1,4 +1,3 @@
-
 #ifndef MAIN_FUNCTIONS_H_
 #define MAIN_FUNCTIONS_H_
 
@@ -13,6 +12,10 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "model.h"
+#include "input.h"
+#include "string.h"
+
 // #include <freertos/FreeRTOS.h>
 // #include <freertos/task.h">
 // Expose a C friendly interface for main functions.
@@ -23,6 +26,8 @@ extern "C" {
 void model_setup();
 
 void inferences();
+
+void result();
 
 #ifdef __cplusplus
 }
