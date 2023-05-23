@@ -23,5 +23,4 @@ extern const uint8_t galinha[];
 
 extern const uint8_t leao[];
 
-
 #endif // INPUT_H_
