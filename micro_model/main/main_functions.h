@@ -20,9 +20,9 @@
 extern "C" {
 #endif
 
-void setup();
+void model_setup();
 
-void loop();
+void inferences();
 
 #ifdef __cplusplus
 }

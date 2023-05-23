@@ -9,18 +9,15 @@ tflite::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
 TfLiteTensor* output = nullptr;
 
-constexpr int kTensorArenaSize = 119 * 2048;
+constexpr int kTensorArenaSize = 120 * 2048;
 uint8_t tensor_arena[kTensorArenaSize];
 }  // namespace
 
-void setup() {
+static void tentative(uint8_t* input, int input_size);
+
+void model_setup(){
 
   model = tflite::GetModel(g_model);
-  if (model->version() != TFLITE_SCHEMA_VERSION) {
-    MicroPrintf("Model provided is schema version %d not equal to supported "
-                "version %d.", model->version(), TFLITE_SCHEMA_VERSION);
-    return;
-  }
 
   static tflite::MicroMutableOpResolver<7> resolver;
   resolver.AddConv2D();
@@ -31,10 +28,8 @@ void setup() {
   resolver.AddFullyConnected();
   resolver.AddLogistic();
 
-
   // Build an interpreter to run the model with.
-  static tflite::MicroInterpreter static_interpreter(
-      model, resolver, tensor_arena, kTensorArenaSize);
+  static tflite::MicroInterpreter static_interpreter(model, resolver, tensor_arena, kTensorArenaSize);
   interpreter = &static_interpreter;
 
   // Allocate memory from the tensor_arena for the model's tensors.
@@ -47,20 +42,72 @@ void setup() {
   // Obtain pointers to the model's input and output tensors.
   input = interpreter->input(0);
   output = interpreter->output(0);
-
-  memcpy(input->data.uint8, sabia, 37716 * sizeof(unsigned char));  
-  
-  TfLiteStatus invoke_status = interpreter->Invoke();
-  if (invoke_status != kTfLiteOk) {
-    MicroPrintf("Invoke failed");
-    return;
-  }
 }
 
-// The name of this function is important for Arduino compatibility.
-void loop() {
-  MicroPrintf("Saída do Modelo:");
-  int8_t out = output->data.int8[0];
-  //out = out & 0b01111111;
-  MicroPrintf("out_value: %d\n", out);
+void inferences() {
+
+  uint8_t out;
+
+  MicroPrintf("Saída do Modelo para a entrada 'Bem-te-vi':");
+  memcpy(input->data.uint8, bem_te_vi, bem_te_vi_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+
+  MicroPrintf("Saída do Modelo para a entrada 'Sabiá':");
+  memcpy(input->data.uint8, sabia, sabia_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+  
+  MicroPrintf("Saída do Modelo para a entrada 'Ganso':");
+  memcpy(input->data.uint8, ganso, ganso_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+
+  MicroPrintf("Saída do Modelo para a entrada 'Cachorro':");
+  memcpy(input->data.uint8, cachorro, cachorro_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+
+  MicroPrintf("Saída do Modelo para a entrada 'Urubu':");
+  memcpy(input->data.uint8, urubu, urubu_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+  
+  MicroPrintf("Saída do Modelo para a entrada 'Cascavel':");
+  memcpy(input->data.uint8, cascavel, cascavel_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+  
+  MicroPrintf("Saída do Modelo para a entrada 'Gato':");
+  memcpy(input->data.uint8, gato, gato_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+  
+  MicroPrintf("Saída do Modelo para a entrada 'Galinha':");
+  memcpy(input->data.uint8, galinha, galinha_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);
+  
+  MicroPrintf("Saída do Modelo para a entrada 'Leão':");
+  memcpy(input->data.uint8, leao, leao_len * sizeof(unsigned char));
+  interpreter->Invoke();
+  out = output->data.uint8[0] - 127;
+  MicroPrintf("out_value: %u\n", out);
+  vTaskDelay(2000 / portTICK_PERIOD_MS);  
 }
