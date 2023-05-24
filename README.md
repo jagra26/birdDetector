@@ -91,6 +91,7 @@ idf.py --port /dev/ttyUSB0 flash monitor
 
 # Source Model
 
-## The micro-model was created usig the model below:
- ```
+The micro-model was created usig the model present int the directory below:
+ ```bash
+ python_model/modelo_bemtevi.ipynb
  ```
